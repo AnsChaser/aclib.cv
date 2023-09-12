@@ -13,7 +13,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/AnsChaser/aclib.cv',
     python_requires='>=3.6',
-    install_requires=['numpy', 'opencv-python', 'aclib.builtins'],
+    install_requires=['numpy<1.24', 'opencv-python', 'aclib.builtins'],
     license='MIT',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
