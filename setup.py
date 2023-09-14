@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='aclib.cv',
-    version='1.0.1',
+    version='1.0.2',
     author='AnsChaser',
     author_email='anschaser@163.com',
     description='opencv api',
