@@ -21,7 +21,11 @@ class TargetList(object):
         return cls._new_(([],))
 
     @classmethod
+    # TargetList 存储原始数据, 只有在需要的时候才读取或遍历 Target, 在项目较多时可以显著提升速度和节省资源
     def _new_(cls, *logicgroups: tuple[list[Target]] | tuple[ list[int], list[int], Callable[[int,int], Target] ]) -> Self:
+
+        """ logicgroup: ([Target, ...], ) | ( [x1, x2, ...], [y1, y2, ...], (x,y)=>Target ) """
+
         self = super().__new__(cls)
         self._init_(*logicgroups)
         return self
