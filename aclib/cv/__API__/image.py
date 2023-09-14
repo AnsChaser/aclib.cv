@@ -426,7 +426,7 @@ class Image(object):
                 dsetsimmats.append(self.__matchdotset(dotset, matchcolor, charscale, cache))
         if dsetsimmats:
             chargroups = DsetSimMat.merge(*dsetsimmats).separate(similarity, True, txtdir)
-            if txtwrap: chargroups = [sum(chargroups, TargetList())]
+            if not txtwrap: chargroups = [sum(chargroups, TargetList())]
             return chargroups
         return []
 
@@ -435,7 +435,7 @@ class Image(object):
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         txtdir: Literal[0,1] = 0,
-        txtwrap = False,
+        txtwrap = True,
         charscale = 1.0,
         charset: str | Literal[''] = None
     ) -> list[TargetList]:
@@ -448,7 +448,7 @@ class Image(object):
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         txtdir: Literal[0,1] = 0,
-        txtwrap = False,
+        txtwrap = True,
         charscale = 1.0,
         charset: str | Literal[''] = None
     ) -> Target:
@@ -469,7 +469,7 @@ class Image(object):
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         txtdir: Literal[0,1] = 0,
-        txtwrap = False,
+        txtwrap = True,
         charscale = 1.0,
         charset: str | Literal[''] = None,
         ignore_overlaps = False
