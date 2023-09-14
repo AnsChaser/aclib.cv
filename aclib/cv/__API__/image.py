@@ -360,7 +360,7 @@ class Image(object):
         targets = TargetList()
         for rgbrange in rgbrange.split('|'):
             ylist, xlist = np.where(isColorsInRgbrange(self._immat, rgbrange))
-            targets += TargetList._new_((ylist, xlist, lambda x,y: Target(rgbrange, (x,y), (x,y), 1.0)))
+            targets += TargetList._new_((xlist, ylist, lambda x,y: Target(rgbrange, (x,y), (x,y), 1.0)))
         return targets
 
 
