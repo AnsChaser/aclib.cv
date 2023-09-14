@@ -385,13 +385,14 @@ class Image(object):
 
     def finddotset(self,
         dotsetlib: DotsetLib,
-        *dotset: str,
+        dotsets: str | Sequence[str],
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         dsetscale = 1.0
     ) -> Target:
         cache = {}
-        for name in dict.fromkeys(dotset):
+        if isinstance(dotsets, str): dotsets = [dotsets]
+        for name in dict.fromkeys(dotsets):
             for dotset in dotsetlib.group(name):
                 targets = self.__matchdotset(dotset, matchcolor, dsetscale, cache).filter(similarity)
                 if targets: return targets[0]
@@ -399,7 +400,7 @@ class Image(object):
 
     def finddotsets(self,
         dotsetlib: DotsetLib,
-        *dotset: str,
+        dotsets: str | Sequence[str],
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         dsetscale = 1.0,
@@ -407,7 +408,8 @@ class Image(object):
     ) -> TargetList:
         cache = {}
         targets = TargetList()
-        for name in dict.fromkeys(dotset):
+        if isinstance(dotsets, str): dotsets = [dotsets]
+        for name in dict.fromkeys(dotsets):
             dsetsimmats = []
             for dotset in dotsetlib.group(name):
                 dsetsimmats.append(self.__matchdotset(dotset, matchcolor, dsetscale, cache))
@@ -442,7 +444,7 @@ class Image(object):
 
     def findtext(self,
         fontlib: FontLib,
-        *text: str,
+        texts: str | Sequence[str],
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         txtdir: Literal[0,1] = 0,
@@ -453,7 +455,8 @@ class Image(object):
         cache = {}
         ocr = lambda _charset: self.__ocr(fontlib, matchcolor, similarity, txtdir, txtwrap, charscale, _charset, cache)
         if charset != '': chargroups = ocr(charset or fontlib.charset)
-        for text in text:
+        if isinstance(texts, str): texts = [texts]
+        for text in texts:
             if charset == '': chargroups = ocr(text)
             for charlist in chargroups:
                 index = charlist.join().name.find(text)
@@ -462,7 +465,7 @@ class Image(object):
 
     def findtexts(self,
         fontlib: FontLib,
-        *text: str,
+        texts: str | Sequence[str],
         matchcolor: Literal[0,1] | HexColorRange = None,
         similarity = 0.95,
         txtdir: Literal[0,1] = 0,
@@ -474,7 +477,8 @@ class Image(object):
         cache, found = {}, TargetList()
         ocr = lambda _charset: self.__ocr(fontlib, matchcolor, similarity, txtdir, txtwrap, charscale, _charset, cache)
         if charset != '': chargroups = ocr(charset or fontlib.charset)
-        for text in text:
+        if isinstance(texts, str): texts = [texts]
+        for text in texts:
             if text == '': continue
             if charset == '': chargroups = ocr(text)
             txtlen, txtreg = len(text), re.escape(text)
